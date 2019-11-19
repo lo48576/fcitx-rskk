@@ -1,9 +1,10 @@
 language: rust
+# Use bionic or later to use fcitx-4.2.9.2 or later.
+dist: bionic
 cache: cargo
 rust:
   - stable
   - beta
-  - nightly
   - 1.39.0
 jobs:
   include:
@@ -11,10 +12,8 @@ jobs:
       env: TEST_MINIMAL_VERSIONS=1
     - rust: 1.39.0
       env: LINT=1
-matrix:
-  allow_failures:
-    - rust: nightly
 before_install:
+  - sudo apt-get -y install fcitx-libs-dev
   - |
     if [ "${LINT:-0}" -ne 0 ] ; then
         rustup component add clippy rustfmt
@@ -32,7 +31,7 @@ before_script:
         cargo +nightly update -Z minimal-versions
     fi
 script:
-  - cargo build --verbose --workspace --all-features && cargo test --verbose --workspace --all-features
+  - if [ "${LINT:-0}" -eq 0 ] ; then cargo build --verbose --workspace --all-features && cargo test --verbose --workspace --all-features ; fi
   # Fail if the code is correctly formatted.
   - if [ "${LINT:-0}" -ne 0 ] ; then cargo fmt --all -- --check ; fi
   # Fail if the code has warnings.
