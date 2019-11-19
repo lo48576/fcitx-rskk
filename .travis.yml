@@ -31,7 +31,7 @@ before_script:
         cargo +nightly update -Z minimal-versions
     fi
 script:
-  - cargo build --verbose --workspace --all-features && cargo test --verbose --workspace --all-features
+  - if [ "${LINT:-0}" -eq 0 ] ; then cargo build --verbose --workspace --all-features && cargo test --verbose --workspace --all-features ; fi
   # Fail if the code is correctly formatted.
   - if [ "${LINT:-0}" -ne 0 ] ; then cargo fmt --all -- --check ; fi
   # Fail if the code has warnings.
