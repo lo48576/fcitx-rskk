@@ -19,3 +19,8 @@ all-features = true
 [badges]
 maintenance = { status = "experimental" }
 travis-ci = { repository = "lo48576/fcitx-rskk" }
+
+[workspace]
+members = [
+    "fcitx-sys",
+]

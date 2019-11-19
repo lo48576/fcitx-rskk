@@ -1,0 +1,12 @@
+[package]
+name = "fcitx-sys"
+version = "0.0.0"
+authors = ["YOSHIOKA Takuma <lo48576@hard-wi.red>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[build-dependencies]
+bindgen = { version = "0.51.1", default-features = false }
