@@ -1,6 +1,6 @@
-# fcitk-rskk
+# fcitx-rskk
 
-[![Build Status](https://travis-ci.com/lo48576/fcitk-rskk.svg?branch=develop)](https://travis-ci.com/lo48576/fcitk-rskk)
+[![Build Status](https://travis-ci.com/lo48576/fcitx-rskk.svg?branch=develop)](https://travis-ci.com/lo48576/fcitx-rskk)
 ![Minimum rustc version: 1.38](https://img.shields.io/badge/rustc-1.38+-lightgray.svg)
 
 
