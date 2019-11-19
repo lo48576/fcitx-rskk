@@ -14,8 +14,18 @@ keywords = ["SKK"]
 [package.metadata.docs.rs]
 all-features = true
 
+[lib]
+name = "fcitx_rskk"
+crate-type = ["cdylib"]
+
 [dependencies]
+fcitx-sys = { path = "fcitx-sys" }
 
 [badges]
 maintenance = { status = "experimental" }
 travis-ci = { repository = "lo48576/fcitx-rskk" }
+
+[workspace]
+members = [
+    "fcitx-sys",
+]
