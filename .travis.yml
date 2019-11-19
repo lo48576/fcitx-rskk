@@ -1,4 +1,6 @@
 language: rust
+# Use bionic or later to use fcitx-4.2.9.2 or later.
+dist: bionic
 cache: cargo
 rust:
   - stable
@@ -11,6 +13,7 @@ jobs:
     - rust: 1.39.0
       env: LINT=1
 before_install:
+  - sudo apt-get -y install fcitx-libs-dev
   - |
     if [ "${LINT:-0}" -ne 0 ] ; then
         rustup component add clippy rustfmt
