@@ -16,18 +16,20 @@ pub(crate) struct Im {
 }
 
 impl Im {
-    /// Creates a new IM instance.
-    pub(crate) fn new(fcitx_instance: FcitxInstance) -> Self {
+    /// Creates a new IM instance and registers it to fcitx.
+    ///
+    /// This returns `Box<_>` so that the address of the registered IM won't change.
+    pub(crate) fn new(fcitx_instance: FcitxInstance) -> Box<Self> {
         trace!("Im::new(): Creating IM");
-        let mut this = Self { fcitx_instance };
+        let mut this = Box::new(Self { fcitx_instance });
         trace!("Registering IM");
-        this.register();
+        Self::register(&mut this);
         trace!("Im::new(): Registered IM");
         this
     }
 
-    /// Registers the IM.
-    pub(crate) fn register(&mut self) {
+    /// Registers the IM to fcitx.
+    fn register(this: &mut Self) {
         let priority = 1 as c_int;
         let interface = fcitx_sys::FcitxIMIFace {
             ResetIM: None,
@@ -52,8 +54,8 @@ impl Im {
         trace!("Im::register(): Calling `fcitx_sys::FcitxInstanceRegisterIMv2`");
         unsafe {
             fcitx_sys::FcitxInstanceRegisterIMv2(
-                self.fcitx_instance.raw_ptr(),
-                self as *mut _ as *mut c_void,
+                this.fcitx_instance.raw_ptr(),
+                this as *mut _ as *mut c_void,
                 unique_name.as_ptr(),
                 name.as_ptr(),
                 icon_name.as_ptr(),
