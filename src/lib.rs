@@ -55,7 +55,7 @@ unsafe extern "C" fn ime_create(
     fcitx_instance: *mut fcitx_sys::FcitxInstance,
 ) -> *mut std::ffi::c_void {
     trace!("ime_create(): Creating IM");
-    let instance = Box::new(Im::new(FcitxInstance::new(fcitx_instance)));
+    let instance: Box<Im> = Im::new(FcitxInstance::new(fcitx_instance));
     trace!("ime_create(): Created IM");
     Box::into_raw(instance) as *mut std::ffi::c_void
 }
